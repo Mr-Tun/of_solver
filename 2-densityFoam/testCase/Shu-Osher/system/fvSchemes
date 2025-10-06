@@ -1,0 +1,70 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+//fluxScheme      Kurganov;
+fluxScheme      Tadmor;
+
+ddtSchemes
+{
+    default         Euler;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+}
+
+divSchemes
+{
+    default         none;
+    //densityFoam
+    div(phi,rho)    Gauss Minmod;
+    div(phi,rhoU)    Gauss Minmod;
+    div(phi,rhoE)    Gauss Minmod;
+    div(phi,p)    Gauss upwind;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear uncorrected;
+}
+
+interpolationSchemes
+{
+    default         none;
+    reconstruct(rho) vanLeer;
+    reconstruct(U)  vanLeerV;
+    reconstruct(T)  vanLeer;
+
+    flux(rhoU)      linear;
+    dotInterpolate(Sf,tauMC) linear;
+    interpolate(muEff) linear;
+
+    //densityFoam
+    interpolate(rho) linear;
+    interpolate(rhoU) linear;
+    interpolate(rhoE) linear;
+    interpolate(U) linear;
+}
+
+snGradSchemes
+{
+    default         uncorrected;
+}
+
+
+// ************************************************************************* //

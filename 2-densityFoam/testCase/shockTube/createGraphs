@@ -1,0 +1,50 @@
+#!/bin/sh
+
+if ! which gnuplot > /dev/null 2>&1
+then
+    echo "gnuplot not found - skipping graph creation" >&2
+    exit 1
+fi
+
+time=$(foamListTimes -latestTime)
+
+graphFile=postProcessing/sample/$time/data.xy
+
+
+gnuplot<<EOF
+    set terminal pdfcairo color enhanced font "Helvetica,20"
+    set output 'rho.eps'
+    set label 1 "dyfluid.com" at graph 0.5,0.5 center rotate by 45 font "Helvetica,50" textcolor rgb "#dddddd"
+
+    set xlabel 'l (m)'
+    set ylabel 'rho '
+    set ytics nomirror
+    set key top left
+    set title "Shock tube problem"
+
+    plot \
+    "$graphFile" u 1:5 w l t '' lw 3 lc rgb "black"
+
+
+EOF
+
+
+gnuplot<<EOF
+    set terminal pdfcairo color enhanced font "Helvetica,20"
+    set output 'p.eps'
+    set label 1 "dyfluid.com" at graph 0.5,0.5 center rotate by 45 font "Helvetica,50" textcolor rgb "#dddddd"
+
+    set xlabel 'l (m)'
+    set ylabel 'p '
+    set ytics nomirror
+    set key top left
+    set title "Shock tube problem"
+    set yrange [0:100000]
+
+    plot \
+    "$graphFile" u 1:4 w l t '' lw 3 lc rgb "black"
+
+
+EOF
+
+#------------------------------------------------------------------------------

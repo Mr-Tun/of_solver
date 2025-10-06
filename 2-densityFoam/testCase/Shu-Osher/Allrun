@@ -1,0 +1,16 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # run from this directory
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+
+foamCleanTutorials
+runApplication blockMesh
+runApplication densityFoam
+#runApplication rhoCentralFoam
+runApplication postProcess -func sample -latestTime
+
+./createGraphs
+
+
+# ----------------------------------------------------------------- end-of-file

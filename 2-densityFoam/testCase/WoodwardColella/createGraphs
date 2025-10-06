@@ -1,0 +1,31 @@
+#!/bin/sh
+
+if ! which gnuplot > /dev/null 2>&1
+then
+    echo "gnuplot not found - skipping graph creation" >&2
+    exit 1
+fi
+
+time=$( foamListTimes -latestTime)
+
+
+
+gnuplot<<EOF
+    set terminal pdfcairo color enhanced font "Helvetica,20"
+    set output 'rho.eps'
+    set label 1 "dyfluid.com" at graph 0.5,0.5 center rotate by 45 font "Helvetica,50" textcolor rgb "#dddddd"
+
+    set xlabel 'l (m)'
+    set ylabel 'rho '
+    set ytics nomirror
+    set key top left
+    set yrange [0:7]
+    set title "Woodward and Colella blast wave"
+
+    plot \
+  "postProcessing/sample/$time/line.xy" u 1:2 w l t '' lw 3 lc rgb "black", \
+  "postProcessing/sample/$time/line.xy" u 1:2 every 5 w p t '' pt 7 ps 0.5 lc rgb "black"
+EOF
+
+
+#------------------------------------------------------------------------------

@@ -1,0 +1,37 @@
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  10
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+Build  : 10-03dd22794e29
+Exec   : postProcess -func sample -latestTime
+Date   : Sep 24 2025
+Time   : 09:36:58
+Host   : "NB"
+PID    : 9454
+I/O    : uncollated
+Case   : /home/yufan/xd/solvers/CFD/2-densityFoam/testCase/shockTube
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0.007
+
+Reading set description:
+    data
+
+Time = 0.007s
+
+Reading fields:
+    volScalarFields: mag(U) p T rho
+
+Executing functionObjects
+
+End
+
